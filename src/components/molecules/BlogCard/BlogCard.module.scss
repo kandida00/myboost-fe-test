@@ -1,0 +1,44 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+@reference "tailwindcss";
+
+.blog-card {
+    @include card;
+    @include transition(all);
+    @apply block no-underline cursor-pointer;
+
+    &:hover {
+        @apply shadow-md border-blue-200;
+        transform: translateY(-2px);
+    }
+
+    &__header {
+        @apply flex justify-between items-start mb-3;
+    }
+
+    &__title {
+        @apply text-xl font-semibold text-gray-900 mb-0;
+        flex: 1;
+    }
+
+    &__category {
+        @apply ml-3 px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800;
+    }
+
+    &__meta {
+        @apply flex flex-col gap-1 text-sm text-gray-600 mb-3;
+    }
+
+    &__author {
+        @apply font-bold;
+    }
+
+    &__date {
+        @apply text-gray-500;
+    }
+
+    &__summary {
+        @apply text-gray-700 leading-relaxed;
+        @include line-clamp(1);
+    }
+}

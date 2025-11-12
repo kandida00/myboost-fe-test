@@ -1,0 +1,55 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+@reference "tailwindcss";
+
+.wizard-step-indicator {
+    @apply flex items-start justify-between mb-8 px-4;
+
+    &__step {
+        @apply flex flex-col items-center relative;
+        flex: 1;
+
+        &--active {
+            .wizard-step-indicator__circle {
+                @apply bg-blue-600 text-white border-blue-600;
+            }
+
+            .wizard-step-indicator__label {
+                @apply text-blue-600 font-semibold;
+            }
+        }
+
+        &--completed {
+            .wizard-step-indicator__circle {
+                @apply bg-green-500 text-white border-green-500;
+            }
+
+            .wizard-step-indicator__line {
+                @apply bg-green-500;
+            }
+        }
+    }
+
+    &__circle {
+        @apply w-10 h-10 rounded-full border-2 border-gray-300 bg-white flex items-center justify-center font-semibold text-gray-500 mb-2 z-10;
+        @include transition(all);
+    }
+
+    &__label {
+        @apply text-sm text-gray-600 text-center;
+        @include transition(all);
+    }
+
+    &__line {
+        @apply absolute top-5 h-0.5 bg-gray-300;
+        left: 50%;
+        right: -50%;
+        @include transition(background-color);
+    }
+}
+
+@include respond-to('sm') {
+    .wizard-step-indicator {
+        @apply px-0;
+    }
+}

@@ -1,0 +1,32 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+@reference "tailwindcss";
+
+.wizard-page {
+    @apply min-h-screen bg-gray-50;
+
+    &__main {
+        @include container;
+        @apply py-8;
+    }
+
+    &__container {
+        @apply max-w-5xl mx-auto;
+    }
+
+    &__title {
+        @apply text-3xl font-bold text-gray-900 mb-2 text-center;
+    }
+
+    &__description {
+        @apply text-gray-600 mb-8 text-center;
+    }
+}
+
+@include respond-to('sm') {
+    .wizard-page {
+        &__title {
+            @apply text-4xl;
+        }
+    }
+}

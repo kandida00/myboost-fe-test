@@ -1,0 +1,11 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+@reference "tailwindcss";
+
+.form-field {
+    @apply flex flex-col mb-4;
+
+    &__error {
+        @apply text-red-500 text-sm mt-1;
+    }
+}

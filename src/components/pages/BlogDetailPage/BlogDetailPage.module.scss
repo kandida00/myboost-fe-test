@@ -1,0 +1,89 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+@reference "tailwindcss";
+
+.blog-detail-page {
+    @apply min-h-screen bg-gray-50;
+
+    &__main {
+        @include container;
+        @apply py-8;
+    }
+
+    &__article {
+        @include card;
+        @apply max-w-4xl mx-auto;
+    }
+
+    &__header {
+        @apply mb-8 pb-6 border-b border-gray-200;
+    }
+
+    &__title {
+        @apply text-4xl font-bold text-gray-900 mb-4;
+    }
+
+    &__meta {
+        @apply flex items-center gap-2 text-sm text-gray-600;
+    }
+
+    &__author {
+        @apply font-medium text-gray-900;
+    }
+
+    &__separator {
+        @apply text-gray-400;
+    }
+
+    &__date {
+        @apply text-gray-600;
+    }
+
+    &__category {
+        @apply px-3 py-1 bg-blue-100 text-blue-800 rounded-full font-medium;
+    }
+
+    &__summary {
+        @apply mb-8 pb-6 border-b border-gray-200;
+    }
+
+    &__summary-title {
+        @apply text-xl font-semibold text-gray-900 mb-3;
+    }
+
+    &__summary-text {
+        @apply text-gray-700 leading-relaxed break-all;
+    }
+
+    &__content {
+        @apply mb-8;
+    }
+
+    &__content-text {
+        @apply text-gray-800 leading-relaxed whitespace-pre-wrap break-all;
+    }
+
+    &__actions {
+        @apply pt-6 border-t border-gray-200;
+    }
+
+    &__not-found {
+        @apply flex flex-col items-center justify-center py-16 px-4 text-center;
+    }
+
+    &__not-found-title {
+        @apply text-2xl font-bold text-gray-900 mb-4;
+    }
+
+    &__not-found-description {
+        @apply text-gray-600 mb-8 max-w-md;
+    }
+}
+
+@include respond-to('sm') {
+    .blog-detail-page {
+        &__title {
+            @apply text-5xl;
+        }
+    }
+}

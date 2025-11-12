@@ -1,0 +1,47 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+@reference "tailwindcss";
+
+.header {
+    @apply bg-white border-b border-gray-200 sticky top-0 z-50;
+    box-shadow: $shadow-sm;
+
+    &__container {
+        @include container;
+        @apply flex items-center justify-between py-4;
+    }
+
+    &__logo {
+        @apply no-underline;
+
+        &:hover {
+            @apply opacity-80;
+        }
+    }
+
+    &__title {
+        @apply text-2xl font-bold text-gray-900 m-0;
+        @include transition(opacity);
+    }
+
+    &__nav {
+        @apply flex items-center gap-6;
+    }
+
+    &__link {
+        @apply text-gray-700 font-medium no-underline;
+        @include transition(color);
+
+        &:hover {
+            @apply text-blue-600;
+        }
+    }
+}
+
+@include respond-to('sm') {
+    .header {
+        &__title {
+            @apply text-3xl;
+        }
+    }
+}

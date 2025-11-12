@@ -1,0 +1,11 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+@reference "tailwindcss";
+
+.label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+
+    &__required {
+        @apply text-red-500 ml-1;
+    }
+}

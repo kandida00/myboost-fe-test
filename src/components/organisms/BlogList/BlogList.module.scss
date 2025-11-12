@@ -1,0 +1,39 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+@reference "tailwindcss";
+
+.blog-list {
+    @apply py-8;
+
+    &__header {
+        @apply flex items-center justify-between mb-8;
+    }
+
+    &__title {
+        @apply text-3xl font-bold text-gray-900 m-0;
+    }
+
+    &__grid {
+        @apply grid grid-cols-1 gap-6;
+
+        @include respond-to('md') {
+            @apply grid-cols-2;
+        }
+
+        @include respond-to('lg') {
+            @apply grid-cols-3;
+        }
+    }
+
+    &__empty {
+        @apply flex flex-col items-center justify-center py-16 px-4 text-center;
+    }
+
+    &__empty-title {
+        @apply text-2xl font-bold text-gray-900 mb-4;
+    }
+
+    &__empty-description {
+        @apply text-gray-600 mb-8 max-w-md;
+    }
+}
