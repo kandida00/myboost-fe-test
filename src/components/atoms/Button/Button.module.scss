@@ -18,6 +18,10 @@
         @apply bg-gray-200 text-gray-800 hover:bg-gray-300 active:bg-gray-400;
     }
 
+    &--danger {
+        @apply bg-red-600 text-white hover:bg-red-700 active:bg-red-800;
+    }
+
     &--outline {
         @apply bg-transparent border-2 border-blue-600 text-blue-600 hover:bg-blue-50 active:bg-blue-100;
     }

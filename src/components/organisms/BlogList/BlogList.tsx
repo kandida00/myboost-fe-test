@@ -40,7 +40,7 @@ export const BlogList: React.FC<BlogListProps> = ({ posts }) => {
             </div>
             <div className={styles['blog-list__grid']}>
                 {posts.map((post) => (
-                    <BlogCard key={post.id} post={post} />
+                    <BlogCard key={post.id} post={post} showActions={true} />
                 ))}
             </div>
         </div>

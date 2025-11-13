@@ -16,6 +16,7 @@ const WizardContext = createContext<WizardContextType | undefined>(undefined);
 
 export interface WizardProviderProps {
     children: ReactNode;
+    initialData?: BlogFormData;
 }
 
 const initialFormData: BlogFormData = {
@@ -26,9 +27,9 @@ const initialFormData: BlogFormData = {
     content: '',
 };
 
-export const WizardProvider: React.FC<WizardProviderProps> = ({ children }) => {
+export const WizardProvider: React.FC<WizardProviderProps> = ({ children, initialData }) => {
     const [currentStep, setCurrentStep] = useState(1);
-    const [formData, setFormData] = useState<BlogFormData>(initialFormData);
+    const [formData, setFormData] = useState<BlogFormData>(initialData || initialFormData);
 
     const totalSteps = 4;
 

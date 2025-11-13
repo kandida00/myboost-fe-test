@@ -64,7 +64,7 @@
     }
 
     &__actions {
-        @apply pt-6 border-t border-gray-200;
+        @apply pt-6 border-t border-gray-200 flex gap-4;
     }
 
     &__not-found {

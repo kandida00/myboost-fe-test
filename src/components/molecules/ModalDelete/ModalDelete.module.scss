@@ -1,0 +1,21 @@
+@reference "tailwindcss";
+
+.delete-modal {
+    @apply fixed inset-0 bg-black/50 flex items-center justify-center z-50;
+
+    &__content {
+        @apply bg-white rounded-lg p-6 max-w-md mx-4 shadow-xl;
+    }
+
+    &__title {
+        @apply text-xl font-bold text-gray-900 mb-4;
+    }
+
+    &__text {
+        @apply text-gray-600 mb-6;
+    }
+
+    &__actions {
+        @apply flex gap-4 justify-end;
+    }
+}

@@ -49,6 +49,10 @@
     &__error {
         @apply mt-4 p-4 bg-red-50 border border-red-200 rounded-md text-red-600;
     }
+
+    &__cancel {
+        @apply flex justify-end mb-2;
+    }
 }
 
 @include respond-to('sm') {

@@ -1,20 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Header } from '@/components/organisms/Header/Header';
 import { Button } from '@/components/atoms/Button/Button';
 import { useBlogContext } from '@/context/BlogContext';
 import { formatDate } from '@/utils/dateHelpers';
 import styles from '@/components/pages/BlogDetailPage/BlogDetailPage.module.scss';
+import ModalDelete from '@/components/molecules/ModalDelete/ModalDelete';
 
 export default function BlogDetailPage() {
     const router = useRouter();
     const { id } = router.query;
-    const { getPostById } = useBlogContext();
+    const { getPostById, deletePost } = useBlogContext();
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
     const post = id && typeof id === 'string' ? getPostById(id) : null;
 
     const handleBackToHome = () => {
         router.push('/');
+    };
+
+    const handleEdit = () => {
+        if (id && typeof id === 'string') {
+            router.push(`/wizard/edit/${id}`);
+        }
+    };
+
+    const handleDeleteClick = () => {
+        setShowDeleteConfirm(true);
+    };
+
+    const handleDeleteConfirm = () => {
+        if (id && typeof id === 'string') {
+            const success = deletePost(id);
+            if (success) {
+                router.push('/');
+            }
+        }
+    };
+
+    const handleDeleteCancel = () => {
+        setShowDeleteConfirm(false);
     };
 
     if (!post) {
@@ -67,10 +92,19 @@ export default function BlogDetailPage() {
                         <p className={styles['blog-detail-page__content-text']}>{post.content}</p>
                     </div>
                     <div className={styles['blog-detail-page__actions']}>
-                        <Button onClick={handleBackToHome} variant="outline">
+                        <Button onClick={handleBackToHome} variant="secondary">
                             Back to Home
                         </Button>
+                        <Button onClick={handleEdit} variant="outline">
+                            Edit
+                        </Button>
+                        <Button onClick={handleDeleteClick} variant="danger">
+                            Delete
+                        </Button>
                     </div>
+                    {showDeleteConfirm && (
+                        <ModalDelete onConfirm={handleDeleteConfirm} onCancel={handleDeleteCancel} />
+                    )}
                 </article>
             </main>
         </div>

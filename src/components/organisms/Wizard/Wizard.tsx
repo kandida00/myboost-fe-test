@@ -17,10 +17,15 @@ const categoryOptions: SelectOption[] = [
 
 const stepLabels = ['Metadata', 'Summary', 'Content', 'Review'];
 
-export const Wizard: React.FC = () => {
+export interface WizardProps {
+    editPostId?: string;
+    handleBackToPost?: () => void;
+}
+
+export const Wizard: React.FC<WizardProps> = ({ editPostId, handleBackToPost }) => {
     const router = useRouter();
     const { currentStep, formData, updateFormData, nextStep, prevStep, resetWizard, totalSteps } = useWizardContext();
-    const { addPost } = useBlogContext();
+    const { addPost, updatePost } = useBlogContext();
     const [errors, setErrors] = useState<Record<string, string | undefined>>({});
 
     const handleFieldChange = (field: keyof typeof formData) => (
@@ -55,12 +60,22 @@ export const Wizard: React.FC = () => {
 
     const handleSubmit = () => {
         try {
-            const newPost = addPost(formData);
-            resetWizard();
-            router.push(`/blog/${newPost.id}`);
+            if (editPostId) {
+                const updatedPost = updatePost(editPostId, formData);
+                if (updatedPost) {
+                    resetWizard();
+                    router.push(`/blog/${updatedPost.id}`);
+                } else {
+                    setErrors({ submit: 'Failed to update post. Post not found.' });
+                }
+            } else {
+                const newPost = addPost(formData);
+                resetWizard();
+                router.push(`/blog/${newPost.id}`);
+            }
         } catch (error) {
-            console.error('Error creating post:', error);
-            setErrors({ submit: 'Failed to create post. Please try again.' });
+            console.error('Error saving post:', error);
+            setErrors({ submit: `Failed to ${editPostId ? 'update' : 'create'} post. Please try again.` });
         }
     };
 
@@ -152,9 +167,9 @@ export const Wizard: React.FC = () => {
             case 4:
                 return (
                     <div className={styles.wizard__step}>
-                        <h2 className={styles.wizard__step_title}>Review & Submit</h2>
+                        <h2 className={styles.wizard__step_title}>Review & {editPostId ? 'Update' : 'Submit'}</h2>
                         <p className={styles.wizard__step_description}>
-                            Review your blog post before submitting.
+                            Review your blog post before {editPostId ? 'updating' : 'submitting'}.
                         </p>
                         <div className={styles.wizard__review}>
                             <div className={styles.wizard__review_section}>
@@ -196,6 +211,11 @@ export const Wizard: React.FC = () => {
                 totalSteps={totalSteps}
                 stepLabels={stepLabels}
             />
+            <div className={styles['wizard__cancel']}>
+                <Button onClick={handleBackToPost} variant="outline">
+                    Cancel Edit
+                </Button>
+            </div>
             <div className={styles.wizard__content}>{renderStep()}</div>
             <div className={styles.wizard__actions}>
                 {currentStep > 1 && (
@@ -210,7 +230,7 @@ export const Wizard: React.FC = () => {
                         </Button>
                     ) : (
                         <Button onClick={handleSubmit} variant="primary">
-                            Submit
+                            {editPostId ? 'Update Post' : 'Submit'}
                         </Button>
                     )}
                 </div>

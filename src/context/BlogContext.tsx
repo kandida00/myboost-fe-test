@@ -6,6 +6,7 @@ export interface BlogContextType {
     posts: BlogPost[];
     isLoading: boolean;
     addPost: (formData: BlogFormData) => BlogPost;
+    updatePost: (id: string, formData: BlogFormData) => BlogPost | null;
     getPostById: (id: string) => BlogPost | null;
     deletePost: (id: string) => boolean;
     refreshPosts: () => void;
@@ -42,6 +43,16 @@ export const BlogProvider: React.FC<BlogProviderProps> = ({ children }) => {
         return newPost;
     };
 
+    const updatePost = (id: string, formData: BlogFormData): BlogPost | null => {
+        const updatedPost = blogService.updatePost(id, formData);
+        if (updatedPost) {
+            setPosts((prevPosts) =>
+                prevPosts.map((post) => (post.id === id ? updatedPost : post))
+            );
+        }
+        return updatedPost;
+    };
+
     const getPostById = (id: string): BlogPost | null => {
         return posts.find((post) => post.id === id) || null;
     };
@@ -63,6 +74,7 @@ export const BlogProvider: React.FC<BlogProviderProps> = ({ children }) => {
         posts,
         isLoading,
         addPost,
+        updatePost,
         getPostById,
         deletePost,
         refreshPosts,
